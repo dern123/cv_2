@@ -30,7 +30,7 @@ export class MainComponent implements OnInit {
     this.languageService.changeLanguages(e)
   }
   getlanguageChoice(){
-		this.languageService.langChoice.subscribe((lang)=> {
+		this.languageService.langChoice.subscribe((lang: any)=> {
 			this.language=lang;
     })
 	}
