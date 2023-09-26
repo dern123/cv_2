@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
+import languageUA from "../language/ukr.json";
+import languageEN from "../language/eng.json";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
-
+  public currentLanguage: any = languageEN;
   constructor() { }
-  
-  public currentLnguage = localStorage.getItem('select-language')
+  public langChoice: EventEmitter<any> = new EventEmitter();
+  public currentLnguage = localStorage.getItem('select-language');
 
   getLanguage(){
     // if(!this.currentLnguage){
@@ -17,8 +19,15 @@ export class LanguageService {
     // return this.currentLnguage
   }
 
-  changeLanguage(lang: string){
-    localStorage.setItem('select-language', lang)
-    this.currentLnguage = lang
+  changeLanguages(event:any){
+    const language = event?.target?.value ? event.target.value : event;
+    if(language == "Eng"){
+      this.langChoice.emit(languageEN);
+      return
+    }
+    if(language == "Ukr"){
+      this.langChoice.emit(languageUA);
+      return
+    }
   }
 }
